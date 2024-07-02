@@ -1,0 +1,22 @@
+# Путь к каталогу
+$directoryPath = "C:\Путь\К\Каталогу"
+
+# Получить все папки в указанном каталоге
+$folders = Get-ChildItem -Path $directoryPath -Directory
+
+# Инициализировать счётчик папок
+$folderCount = 0
+
+# Перебрать все папки
+foreach ($folder in $folders) {
+    # Проверить наличие файлов в текущей папке и вложенных подпапках
+    $files = Get-ChildItem -Path $folder.FullName -File -Recurse
+
+    # Увеличить счётчик, если найдены файлы
+    if ($files.Count -gt 0) {
+        $folderCount++
+    }
+}
+
+# Вывести результат
+Write-Output "Количество папок с вложенными файлами: $folderCount"
