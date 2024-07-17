@@ -1,0 +1,31 @@
+Sub ExtractColumnData()
+    Dim ws As Worksheet
+    Dim colData As Range
+    Dim cell As Range
+    Dim dataList As Collection
+    Dim itemNumber As Integer
+    
+    ' Установите рабочий лист
+    Set ws = ThisWorkbook.Sheets("Лист1") ' Замените "Sheet1" на имя вашего листа
+    
+    ' Установите диапазон данных в колонке
+    Set colData = ws.Range("B2:B" & ws.Range("B" & ws.Rows.Count).End(xlUp).Row) ' Замените "A" на вашу колонку
+    
+    ' Создайте коллекцию для хранения данных
+    Set dataList = New Collection
+    
+    ' Перебор ячеек в колонке и добавление значений в коллекцию, начиная со второй ячейки
+    itemNumber = 1
+    For Each cell In colData
+        If cell.Value <> "" Then
+            dataList.Add cell.Value
+        End If
+    Next cell
+    
+    ' Вывод данных из коллекции в виде пронумерованного списка, начиная со второго элемента
+    Dim item As Variant
+    For Each item In dataList
+        Debug.Print itemNumber & ". " & item
+        itemNumber = itemNumber + 1
+    Next item
+End Sub
